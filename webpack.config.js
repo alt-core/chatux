@@ -22,7 +22,7 @@ module.exports = (env, argv) => {
             path: path.join(__dirname, "dist"),
             publicPath: '/js/',
             filename: argv.mode === 'production' ? `[name].min.js` : `[name].js`,
-            library: '',
+            library: 'chatux',
             libraryTarget: 'umd'
         },
         module: {
