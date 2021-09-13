@@ -65,12 +65,15 @@ module.exports = (env, argv) => {
         },
         resolve: {
             alias: {
-                'vue': 'vue/dist/vue.min.js',
+                'vue': 'vue/dist/vue.js',
             }
         },
         plugins: [
             new webpack.BannerPlugin(`[name] v${version} Copyright (c) 2019 Tom Misawa, riversun.org@gmail.com, https://github.com/riversun`)
         ],
+	optimization: {
+		minimize: false
+	}
     };
 
     if (argv.mode !== 'production') {
