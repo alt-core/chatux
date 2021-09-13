@@ -34,7 +34,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "botui": "git+https://github.com/alt-core/botui.git",
+    "botui": "github:alt-core/botui_chatux",
     "jsframe.js": "^1.6.2",
     "vue": "2.6.14"
   }
