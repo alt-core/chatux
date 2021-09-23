@@ -67,7 +67,7 @@ export default class ChatUx {
     this.ui = new ChatUI({
       holderId: this.holderEleId,
       botInfo: botInfo,
-      vue: Vue,
+      vue: 'vue' in opts ? opts.vue : Vue,
       api: opts.api,
       methods: methods,
       parent: this
