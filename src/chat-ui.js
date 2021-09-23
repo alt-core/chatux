@@ -235,6 +235,12 @@ export default class ChatUI {
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
+            } else if (resType == 'dynamic') {
+
+                const type = 'dynamic';
+                const contentValue = message.value;
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+
             } else if (resType == 'window' && (this.opts.parent && this.opts.parent.getRenderMode() === 'pc')) {
 
                 let _delayMs = delayMs;
