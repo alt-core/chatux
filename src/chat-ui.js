@@ -32,7 +32,10 @@ export default class ChatUI {
         if (!this.botui) {
 
             this.botui = new BotUI(this.opts.holderId,
-                {vue: this.opts.vue}
+                {
+                    vue: this.opts.vue,
+                    extensionComponents: this.opts.extensionComponents,
+                }
             );
 
             if (this.opts) {
@@ -235,9 +238,9 @@ export default class ChatUI {
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 
-            } else if (resType == 'dynamic') {
+            } else if (resType == 'ext') {
 
-                const type = 'dynamic';
+                const type = 'ext';
                 const contentValue = message.value;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
 

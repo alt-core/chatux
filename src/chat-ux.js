@@ -68,6 +68,7 @@ export default class ChatUx {
       holderId: this.holderEleId,
       botInfo: botInfo,
       vue: 'vue' in opts ? opts.vue : Vue,
+      extensionComponents: opts.extensionComponents,
       api: opts.api,
       methods: methods,
       parent: this
