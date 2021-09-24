@@ -53,7 +53,7 @@ export default class ChatClient {
             params = {};
         }
 
-        
+
         ac.ajax({
             type: this.method,
             url: this.endpoint,
@@ -63,6 +63,7 @@ export default class ChatClient {
         }).done(response => {
             callbackFunc(response);
         }).fail((err) => {
+            console.log(err);
             const errorResponse = this.errorResponse;
             callbackFunc(errorResponse);
         });
