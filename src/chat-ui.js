@@ -241,6 +241,7 @@ export default class ChatUI {
 
                 const type = 'ext';
                 const contentValue = message.value;
+                msgOpts['cssClass'] = message.value.type;
                 this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'window' && (this.opts.parent && this.opts.parent.getRenderMode() === 'pc')) {
