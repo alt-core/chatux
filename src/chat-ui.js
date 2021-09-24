@@ -384,23 +384,27 @@ export default class ChatUI {
 
     handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs) {
 
+        const msg = {
+            type: type,
+            photo: true,
+            content: contentValue
+        };
+        if ('botPhoto' in contentValue) {
+            msg['botPhoto'] = contentValue.botPhoto;
+        }
+        if ('humanPhoto' in contentValue) {
+            msg['humanPhoto'] = contentValue.humanPhoto;
+        }
+
         if (outIdx == 0) {
             //In the case of the first message,
             // remove the loading icon and show message
-            this.botui.message.update(loadingIconMsgIdx, {
-                type: type,
-                loading: false,
-                photo: true,
-                content: contentValue
-            });
+            msg['loading'] = false;
+            this.botui.message.update(loadingIconMsgIdx, msg);
 
         } else {
-            this.botui.message.add({
-                type: type,
-                delay: delayMs,
-                photo: true,
-                content: contentValue
-            });
+            msg['delay'] = delayMs;
+            this.botui.message.add(msg);
         }
     }
 }
