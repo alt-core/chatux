@@ -133,7 +133,7 @@ export default class ChatUI {
                         this.chatClient.params = {};
                     }
 
-                    this.chatClient.params.text = userInput.value;
+                    this.chatClient.params.text = userInput.postback || userInput.value;
 
                     //You can intercept request headers/params before sending a request to server
                     if (this.opts.methods && this.opts.methods.onPrepareRequest) {
@@ -340,8 +340,9 @@ export default class ChatUI {
                     const opt = opts[optIdx];
                     const label = opt.label;
                     const text = opt.value;
+                    const postback = opt.postback || opt.value;
 
-                    optActions.push({text: label, value: text});
+                    optActions.push({text: label, value: text, postback: postback});
                 }
 
                 isUserInputConsumed = true;
