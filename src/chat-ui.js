@@ -193,56 +193,55 @@ export default class ChatUI {
                 delayMs += message.delayMs;
             }
 
+            const msgOpts = {};
+            for (let optName of ['botPhoto', 'humanPhoto']) {
+                if (optName in message) {
+                    msgOpts[optName] = message[optName];
+                }
+            }
+
             if (resType == 'text') {
 
-                if (outIdx == 0) {
-                    //In the case of the first message,
-                    // remove the loading icon and show message
-                    this.botui.message.update(loadingIconMsgIdx, {
-                        loading: false,
-                        photo: true,
-                        content: message.value
-                    });
+                const type = null;
+                const contentValue = message.value;
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
-                } else {
+            } else if (resType == 'plaintext') {
 
-                    this.botui.message.add({
-                        delay: delayMs,
-                        photo: true,
-                        content: message.value
-                    });
-                }
+                const type = 'plaintext';
+                const contentValue = message.value;
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'image') {
 
                 const type = null;
                 const contentValue = '![image](' + message.value + ')';
-                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'youtube') {
 
                 const type = 'embed';
                 const youtubeId = message.value;
                 const contentValue = `<iframe src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'embed') {
 
                 const type = 'embed';
                 const contentValue = message.value;
-                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'html') {
 
                 const type = 'html';
                 const contentValue = message.value;
-                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'ext') {
 
                 const type = 'ext';
                 const contentValue = message.value;
-                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
             } else if (resType == 'window' && (this.opts.parent && this.opts.parent.getRenderMode() === 'pc')) {
 
@@ -300,13 +299,13 @@ export default class ChatUI {
                         title = message.title;
                     }
 
-                    this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                    this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
 
                 } else {
                     //html
                     contentValue = message.html ? message.html : 'No data';
 
-                    this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs);
+                    this.handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts);
                 }
 
 
@@ -382,19 +381,13 @@ export default class ChatUI {
         }
     }
 
-    handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs) {
+    handleContent(outIdx, loadingIconMsgIdx, type, contentValue, delayMs, msgOpts) {
 
         const msg = {
             type: type,
-            photo: true,
-            content: contentValue
+            content: contentValue,
+            ...msgOpts,
         };
-        if ('botPhoto' in contentValue) {
-            msg['botPhoto'] = contentValue.botPhoto;
-        }
-        if ('humanPhoto' in contentValue) {
-            msg['humanPhoto'] = contentValue.humanPhoto;
-        }
 
         if (outIdx == 0) {
             //In the case of the first message,
